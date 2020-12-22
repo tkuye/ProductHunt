@@ -19,7 +19,12 @@ body {
 
 }
 
-
+      
+ span.oi::before {
+     position: absolute;
+     top: 0px;
+     right: 6px;
+}
 
 .longer {
     height: fit-content;
@@ -67,11 +72,14 @@ li a {
     z-index: 0;
     
 }
-#signs {
+.signs {
     width: 300px;
     text-align: right;
+    height: fit-content;
+    padding: 5px;
+    vertical-align: middle;
 }
-#signs a {
+.signs a {
     font-size: 20px;
     
 }
@@ -85,8 +93,6 @@ li a:hover {
     top: -3px;
     z-index: 100;
 }
-
-
 
 a#useless {
     text-decoration: none;

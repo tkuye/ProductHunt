@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% block styles %}
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'css/login.css' %}">
+<link rel="stylesheet" href="{% static 'css/create.css' %}">
+{% endblock %}
+<div id='diver'>
+<form class='background' id="create" action="{% url 'create' %}" method="POST" enctype='multipart/form-data'>
+    {% if error %}
+    <p class='error' >{{ error }}</p>
+    {% endif %}
+    <h1 class='creator' >Create!</h1>
+    {% csrf_token %}
+    <label for="title"><h2>Title:</h2></label>
+    <input class='hi' type="text" name="title" id="title">
+
+    <label for="textarea"><h2>Body:</h2></label>
+    <textarea class='hi' name="body" id="textarea" cols="30" rows="10"></textarea>
+
+    <label for="url"><h2>Url:</h2></label>
+    <input class='hi' type="text" name='url' id='url'>
+
+    <label for="icon"><h2>Icon</h2></label>
+    <input class='hi' type="file" name="icon" id="icon">
+
+    <label for="image"><h2>Image</h2></label>
+    <input class='hi' type="file" name="image" id="image">
+
+    <input class='submit' type="submit" value="Submit">
+</form>
+</div>
+<script>
+    let h2s = document.getElementsByTagName('h2')
+    for (let h2 of h2s) {
+        h2.style.transition = '0.5s ease'
+    }
+    function findLabelForControl(el) {
+   var idVal = el.id;
+   labels = document.getElementsByTagName('label');
+   for( var i = 0; i < labels.length; i++ ) {
+      if (labels[i].htmlFor == idVal)
+           return labels[i];
+   }
+}
+        form = document.getElementsByTagName('form')[1]
+        form.onclick = function(event) {
+            let input = event.target.closest('.hi')
+            if (!input) return 
+            let inp = findLabelForControl(input)
+            let ins = inp.lastElementChild
+            let actives  = document.querySelectorAll('.active')
+            for (let active of actives) {
+                active.classList.remove('active')
+            }
+            ins.classList.add('active')
+
+        }
+
+</script>
+<style>
+    .active {
+        font-size: 32px;
+    }
+</style>
+{% endblock %}
+

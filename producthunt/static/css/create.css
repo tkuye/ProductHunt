@@ -1,0 +1,130 @@
+html  {
+    overflow-x: hidden;
+    padding: 0;
+    margin: 0;
+}
+body {
+    background-image: none;
+    background-color: white !important;
+    overflow-x: hidden;
+    padding: 0;
+    margin: 0;
+}
+h2 {
+    font-size: 28px;
+}
+h1.creator {
+    font-size: 39px;
+    text-shadow: 0 0 5px rgb(230, 230, 230);
+}
+form#create {position: relative;
+    box-shadow: none;
+    width: fit-content;
+    background-color: white;
+    text-align: left;
+    margin: auto;
+    border: none;
+    border-radius: none;
+    padding-top: 50px !important;
+    z-index: 2;
+}
+
+input[type='file'] {
+    border: 1px solid rgb(248, 248, 248);
+}
+
+input[type='file']:hover, input[type='file']:focus {
+    box-shadow: none;
+}
+input:hover {
+    transition: 0.2s ease;
+}
+input {
+    padding: 10px;
+    width: 100%;
+    max-width: none;
+}
+textarea {
+    width: 100%;
+    font-size: 16px;
+    outline: none;
+    border: 1px solid rgb(231, 231, 231);
+    border-radius: 5px;
+    padding: 10px;
+    font-family: 'Raleway';
+    
+}
+
+textarea:hover {
+    box-shadow: 0 0 9px rgb(185, 224, 255);
+    transition: 0.2s ease;
+}
+
+input[type='submit'] {
+    margin-top: 30px;
+    height: 40px;
+    padding: 10px;
+    max-width: none;
+    border: 1px solid rgb(243, 243, 243);
+    background-color: rgb(65, 144, 235);
+    color: white;
+    font-size: 22px;
+    box-sizing: content-box !important;
+-moz-box-sizing: border-box;
+cursor: pointer;
+}
+
+input[type='submit']:hover {
+    box-shadow: none;
+    background-color: rgb(62, 138, 224);
+}
+
+.entire {
+    width: 100%;
+    background-color: blue !important;
+    /*transition: 2s  ease;*/
+}
+
+.hello {
+    width: 100%;
+    background-color: rgb(99, 253, 253);
+}
+
+@media only screen and (max-width:700px) {
+    input {
+        height: 22px;
+        width: 95%;
+        min-width: 0px;
+        
+
+    }
+
+    textarea {
+        width: 95%;
+    }
+    .subs {
+        width: 98% !important;
+    }
+    form {
+        height: fit-content;
+        width: 90% !important;
+        padding: 20px;
+        text-align: left;
+        margin-left: 10%;
+        margin-right: 10%;
+        margin: 0 auto;
+        margin-top: 30px;
+        min-width: 300px;
+    }
+}
+
+@media only screen and (max-width:360px) {
+    form {
+       
+        margin: 0 auto;
+        margin-top: 40px;
+        margin-right: 3%;
+        margin-left: 3%;
+        min-width: 0px;
+    }
+}

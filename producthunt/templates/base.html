@@ -8,6 +8,7 @@
     {% endblock %}
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link href="{% static 'open-iconic/font/css/open-iconic.css' %}" rel="stylesheet">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Raleway&display=swap');
         body {
@@ -21,13 +22,13 @@
     <div class="nav">
         <ul>
           {% if user.is_authenticated %}
-          <div id="signs"><li><a href="javascript:{document.getElementById('logout').submit()}">Logout</a></li></div>
+          <div class="signs"><li><a href="{% url 'create' %}"><span class="oi" data-glyph="plus"></span></a></li><li><a class='logs' href="javascript:{document.getElementById('logout').submit()}">Logout</a></li></div>
           <form id='logout' action="{% url 'logout' %}" method="POST">
             {% csrf_token %}
             <input type="hidden">
           </form>
           {% else %}
-          <div id="signs"><li id='first'><a href="{% url 'signup' %}">Sign Up</a></li>
+          <div class="signs"><li id='first'><a href="{% url 'signup' %}">Sign Up</a></li>
             <li><a href="{% url 'login' %}">Login</a></li></div>
           {% endif %}
           </ul>
@@ -198,10 +199,11 @@ window.addEventListener("DOMContentLoaded", () => {
       justify-content: center;
       z-index: 0 !important;
       height: 210px;
+      visibility: hidden;
   }
   
   
-  div#signs {display: flex;
+  div.signs {display: flex;
       flex-direction: column;
       margin-top: 80px;
       width: 105px;
@@ -229,6 +231,12 @@ window.addEventListener("DOMContentLoaded", () => {
   .longer {
     opacity: 1;
     z-index: 100000;
+  }
+
+    span.oi::before {
+     position: relative;
+     
+
   }
 }
 </style>
