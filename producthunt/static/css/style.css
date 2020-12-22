@@ -1,0 +1,142 @@
+html {
+    height: fit-content;
+}
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 0px;
+    margin: 0 ;
+    width: 100%;
+    overflow-x: hidden;
+    
+}
+
+
+.nav {
+    width: 100%;
+    height: 60px; 
+    background-color: rgb(245, 245, 245);
+    z-index: 0;
+
+}
+
+
+
+.longer {
+    height: fit-content;
+    z-index: 1;
+    background-color: rgb(255, 255, 255);
+    position: relative;
+}
+
+
+
+#first {
+    border-right: 1px solid rgb(170, 170, 170);
+    cursor: default ;
+}
+
+ 
+
+
+ul {position: relative;
+    margin: 0 auto;
+    width: 95%;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end ;
+    flex-direction: row;
+    z-index: 0;
+}
+
+li {position: relative;
+    display: inline;
+    margin: 0 auto;
+    z-index: 1 !important;
+    margin-bottom: 10px;
+    width: 200px;
+    
+}
+li a {
+    color: rgb(124, 124, 124);
+    font-size: 25px;
+    text-decoration: none;
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-top: 220px !important;
+    z-index: 0;
+    
+}
+#signs {
+    width: 300px;
+    text-align: right;
+}
+#signs a {
+    font-size: 20px;
+    
+}
+li a:hover {
+    color: black;
+}
+
+#alogo img{
+    position: absolute;
+    height: 70px;
+    top: -3px;
+    z-index: 100;
+}
+
+
+
+a#useless {
+    text-decoration: none;
+    color: rgb(247, 247, 247);
+}
+
+footer {
+    width: 100%;
+    height: 50px;
+    background-color: rgb(245, 245, 245);
+
+}
+#alogo {
+    cursor: pointer;
+    height: 60px;
+    width: 50px;
+    position: absolute;
+    left: 6px;
+}
+footer p {
+    margin-left: 30px;
+    padding-top: 15px;
+}
+.resize-animation-stopper * {
+    animation: none !important;
+    transition: none !important;
+  }
+
+#signupsir {
+    z-index: 10000;
+}
+  @media only screen and (max-width: 790px ) {
+      .head {
+          height: 380px;
+      }
+  }
+
+  @media only screen and (max-width: 570px ) {
+      .head {
+          height: 370px;
+      }
+  }
+
+  @media only screen and (max-width: 500px ) {
+      .head {
+          height: 420px;
+      }
+  }
+  @media only screen and (max-width: 410px ) {
+      .head > h4 {
+          font-size: 18px;
+      }
+  }

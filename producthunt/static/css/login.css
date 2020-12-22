@@ -1,0 +1,107 @@
+body {
+    background-image: linear-gradient(to right, rgb(186, 220, 248), rgb(140, 205, 248));
+    position: relative;
+   
+}
+h1 {
+    text-align: center;
+}
+
+.longer {
+    background-image: linear-gradient(to right, rgb(186, 220, 248), rgb(140, 205, 248));
+    padding-top: 50px;
+}
+
+form {
+   position: relative;
+    height: fit-content;
+    margin:  auto;
+    padding: 50px;
+    text-align: center;
+    margin-top: 50px;
+    width: min-content;
+    padding-top: 10px;
+    border: 1px solid rgb(233, 233, 233);
+    border-radius: 6px;
+    background-color: rgb(255, 245, 245);
+    box-shadow: 0 0 10px rgb(221, 221, 221);
+    z-index: 100;
+}
+
+h3 {
+    text-align: left !important;
+    margin-bottom: 10px;
+}
+
+.error {
+    text-align: center;
+    color: rgb(253, 40, 11);
+    text-shadow: 0 0 2px red;
+
+}
+input {
+    width: 50%;
+    height: 25px;
+    outline: none;
+    border: 1px solid rgb(231, 231, 231);
+    border-radius: 5px;
+    padding: 5px;
+    font-family: 'Raleway';
+    max-width: 430px;
+    min-width: 330px;
+}
+
+input:focus, input:hover {
+    box-shadow: 0 0 9px rgb(185, 224, 255);
+}
+.subs {
+    margin-top: 30px;
+    height: 35px;
+    font-size: 18px;
+    cursor: pointer;
+    width: 342px ;
+    border: 1px solid rgb(243, 243, 243);
+    background-color: rgb(65, 144, 235);
+    color: white;
+}
+.subs:hover {
+    background-color: rgb(61, 133, 216);
+    box-shadow: none;
+    
+    
+}
+
+@media only screen and (max-width:500px) {
+    input {
+        height: 22px;
+        width: 95%;
+        min-width: 0px;
+        
+
+    }
+    .subs {
+        width: 98% !important;
+    }
+    form {
+        height: fit-content;
+        width: 80%;
+        padding: 20px;
+        text-align: left;
+        margin-left: 10%;
+        margin-right: 10%;
+        margin: 0 auto;
+        margin-top: 30px;
+        min-width: 300px;
+    }
+}
+
+@media only screen and (max-width:360px) {
+    form {
+       
+        margin: 0 auto;
+        margin-top: 40px;
+        margin-right: 3%;
+        margin-left: 3%;
+        min-width: 0px;
+    }
+}

@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    {% block styles %}
+    {% endblock %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Raleway&display=swap');
+        body {
+            font-family: 'Raleway';
+        }
+       
+        </style>
+</head>
+<body>
+    <a id='alogo'href=""><img src="{% static 'logo/sangaa-16-removebg-preview.png' %}" alt="logo"></a>
+    <div class="nav">
+        <ul>
+          {% if user.is_authenticated %}
+          <div id="signs"><li><a href="javascript:{document.getElementById('logout').submit()}">Logout</a></li></div>
+          <form id='logout' action="{% url 'logout' %}" method="POST">
+            {% csrf_token %}
+            <input type="hidden">
+          </form>
+          {% else %}
+          <div id="signs"><li id='first'><a href="{% url 'signup' %}">Sign Up</a></li>
+            <li><a href="{% url 'login' %}">Login</a></li></div>
+          {% endif %}
+          </ul>
+        <div class="hamburger">
+            <div class="hamburgerTop"></div>
+            <div class="hamburgerMiddle"></div>
+            <div class="hamburgerBottom"></div>
+        </div>
+    </div>
+   
+    {% block content %}
+    
+    {% endblock %}
+  
+    <a id='useless' href="https://www.vecteezy.com/free-vector/business">Business Vectors by Vecteezy</a>
+    <footer><p>&copy; Have a lovely {% now 'Y' %}</p></footer>
+</body>
+<script>
+    let isOpen = false 
+    const hamburgerTop = document.getElementsByClassName('hamburgerTop')[0];
+    const hamburgerMiddle = document.getElementsByClassName('hamburgerMiddle')[0];
+    const hamburgerBottom = document.getElementsByClassName('hamburgerBottom')[0];
+    const nav = document.getElementsByClassName('nav')[0]
+    const ul = document.getElementsByTagName('ul')[0]
+    let li = document.getElementsByTagName('li')
+    
+    document.getElementsByClassName('hamburger')[0].addEventListener('click', toggle)
+    function toggle() {
+        if (isOpen) {
+            hamburgerTop.classList.remove('open')
+            hamburgerMiddle.classList.remove('open')
+            hamburgerBottom.classList.remove('open')
+            nav.classList.remove('open')
+            ul.classList.remove('open')
+            isOpen = false
+            return;
+        }
+        hamburgerTop.classList.add('open')
+        hamburgerMiddle.classList.add('open')
+        hamburgerBottom.classList.add('open')
+        nav.classList.add('open')
+        ul.classList.add('open')
+        
+        isOpen = true;
+        
+    }
+    
+    let resizeTimer;
+window.addEventListener("resize", () => {
+  document.body.classList.add("resize-animation-stopper");
+  clearTimeout(resizeTimer);
+  resizeTimer = setTimeout(() => {
+    document.body.classList.remove("resize-animation-stopper");
+  }, 400);
+});
+
+window.addEventListener("DOMContentLoaded", () => {
+  document.body.classList.add("resize-animation-stopper");
+  clearTimeout(resizeTimer);
+  resizeTimer = setTimeout(() => {
+    document.body.classList.remove("resize-animation-stopper");
+  }, 400);
+});
+
+</script>
+<style type="text/css" >
+/* Main style of the hamburger icon */
+  @media only screen and (max-width: 830px) {
+  .hamburger {
+    width: 30px;
+    height: 30px;
+    margin: 20px auto;
+    margin-top: 0px;
+    cursor: pointer;
+  }
+
+
+  /* Style of the layers of the hamburger */
+  .hamburgerTop, .hamburgerMiddle, .hamburgerBottom {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: block;
+    width: 30px;
+    height: 3px;
+    background: rgb(102, 102, 102);
+  }
+  
+  /* Animation from open (X) to close (hamburger) */
+  .hamburgerTop, .hamburgerBottom {
+    /*
+     * Parameter explanation:
+     * transform    - rotating back elements
+     * 0.4s         - duration of 'transform'-animation
+     * ease         - animation style for 'transform'
+     *
+     * margin-top   - bring layers to original position
+     * 0.3s         - duration for 'margin-top'
+     * ease         - animation style for 'margin-top'
+     * 0.4s         - wait 0.4s (duration of 'transform') before starting 'margin-top'-animation
+     */
+    transition: transform 0.4s ease, margin-top 0.3s ease 0.4s;
+  }
+  
+  .hamburgerMiddle {
+    transition: opacity 0.2s ease 0.5s;
+  }
+  
+  /* Margin between the layers */
+  .hamburgerTop {
+    margin-top: 7px;
+  
+  }
+  
+  .hamburgerMiddle {
+    margin-top: 15px;
+  }
+  
+  .hamburgerBottom {
+    margin-top: 23px;
+  }
+  
+  /* Animation from close (hamburger) to open (X) */
+  .hamburgerTop.open, .hamburgerBottom.open {
+    transition: margin-top 0.3s ease, transform 0.4s ease 0.3s;
+  }
+  
+  /* 
+   * All layers at same position.
+   * One layer not visible at all.
+   * Two layers forming an 'X'-shape.
+   */
+  .hamburgerTop.open {
+    transform: rotate(45deg);
+    margin-top: 15px;
+  }
+  
+  .hamburgerMiddle.open {
+    opacity: 0;
+    transition: none;
+  }
+  
+  .hamburgerBottom.open {
+    transform: rotate(-45deg);
+    margin-top: 15px;
+  }
+  
+  .nav.open {width: 100%;
+      height: 210px;
+      transition: ease 0.5s ;
+      z-index: 0;
+  }
+  
+  .nav {width: 100%;
+      transition: ease 0.5s;
+      z-index: 0;
+      position: relative;
+      
+  }
+  
+  ul {position: relative;
+      opacity: 0;
+      display: flex;
+      flex-direction: column;
+      margin-left: 0px;
+      transition:  ease 1s;
+     align-items: flex-start;
+      justify-content: center;
+      z-index: 0 !important;
+      height: 210px;
+  }
+  
+  
+  div#signs {display: flex;
+      flex-direction: column;
+      margin-top: 80px;
+      width: 105px;
+      text-align: left;
+      height: 120px;
+      z-index: 0 !important;
+      position: relative;
+  }
+  
+  
+  
+  #first {
+      border-right: none;
+      margin-bottom: 20px;
+  }
+  
+  ul.open {
+    opacity: 1;
+      visibility: visible;
+      transition: ease 0.5s;
+      position: relative;
+      z-index: 0;
+  }
+  
+  .longer {
+    opacity: 1;
+    z-index: 100000;
+  }
+}
+</style>
+
+</html>

@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    {% block styles %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+{% endblock %}
+<div class="longer">
+    <form class="sign" action="{% url 'login'%}" method="POST">
+        <h1>Login</h1>
+        {% csrf_token %}
+        <h3>Username:</h3>
+        <input type="text" name='username' id='user'/>
+        <h3>Password:</h3>
+        <input type="password" name="password" id="pass">
+        <input type="submit" class='subs' value="Login">
+        <p><a id='forgot' href="">Forgot your password?</a></p>
+        {% if error %}
+        <p id='error' >{{ error }}</p>
+        {% endif %}
+    </div>
+    </form>
+    <style>
+        #error {
+            margin-top: 45px;
+            text-align: center;
+    color: rgb(253, 40, 11);
+    text-shadow: 0 0 2px red;
+        }
+        form {
+            height:360px
+        }
+        .subs {
+            text-align: center;
+        }
+        #forgot {
+            text-decoration: none;
+            color: black;
+            text-align: right;
+            font-size: smaller;
+            position: absolute;
+            right: 50px;
+            
+        }
+    </style>
+{% endblock %}

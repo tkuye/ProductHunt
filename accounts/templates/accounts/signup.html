@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% block styles %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/login.css' %}">
+{% endblock %}
+
+    <div class="longer">
+    <form class="sign" action="{% url 'signup'%}" method="POST">
+        <h1>Sign Up!</h1>
+        {% csrf_token %}
+        <h3>Username:</h3>
+        <input type="text" name='username' id='user'/>
+        <h3>Email Adress</h3>
+        <input type="email" name="email" id="email">
+        <h3>Password:</h3>
+        <input type="password" name="password1" id="pass">
+        <h3>Confirm Password:</h3>
+        <input type="password" name="password2" id="pass">
+        <input type="submit" class='subs' value="Submit">
+        {% if errors %}
+            {% for error in errors %}
+        <p class='error' >{{ error }}</p>
+            {% endfor %}
+        {% endif %}
+        {% if erroro %}
+        <p class='error'>{{erroro}}</p>
+        {% endif %}
+    </div>
+    </form>
+
+
+{% endblock %}
