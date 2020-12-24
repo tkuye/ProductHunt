@@ -6,11 +6,11 @@ class Product(models.Model):
       
     title = models.CharField(max_length=250)
     url = models.CharField(max_length=300)
-    pub_date = models.DateField(auto_now=True)
+    pub_date = models.DateField(auto_now_add=True)
     votes_total = models.IntegerField(default=1)
     image = models.ImageField(upload_to='images/')
     icon = models.ImageField(upload_to='images/')
-    body = models.TextField(max_length=1000)
+    body = models.TextField()
     hunter = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def summary(self):
@@ -21,3 +21,9 @@ class Product(models.Model):
     
     def __str__(self):
         return self.title
+
+class Vote(models.Model):
+    productId = models.ForeignKey(Product,on_delete=models.CASCADE)
+    userId = models.ForeignKey(User,on_delete=models.CASCADE)
+
+
