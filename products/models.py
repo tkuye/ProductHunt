@@ -1,5 +1,7 @@
+from django.core import serializers
 from django.db import models
 from django.contrib.auth.models import User
+from django.db.models import fields
 
 # Products Class
 class Product(models.Model):
@@ -27,3 +29,15 @@ class Vote(models.Model):
     userId = models.ForeignKey(User,on_delete=models.CASCADE)
 
 
+class Comment(models.Model):
+    userId = models.ForeignKey(User,on_delete=models.CASCADE)
+    productId = models.ForeignKey(Product,on_delete=models.CASCADE)
+    comment = models.TextField()
+
+
+
+
+
+
+
+    

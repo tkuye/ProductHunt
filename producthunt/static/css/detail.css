@@ -149,6 +149,67 @@ div.textbody {
     max-height: 125px;
     
 }
+.commenter {
+    grid-column: 2 / 12;
+}
+.commenter textarea {
+    width: 100%;
+    height: 20px;
+    outline: none;
+    border: none;
+    padding-left: 5px;
+    padding-top: 5px;
+    font-size: 15px;
+    font-family: 'Raleway';
+    border-right: none;
+    resize: none;
+}
+
+form#comments {
+    display: flex;
+    flex-direction: row;
+    border: 1px solid rgb(199, 199, 199);
+    border-radius: 25px;
+    padding: 7px;
+    margin-bottom: 50px;
+}
+#commentsection {
+    display: flex;
+    flex-direction: column-reverse;
+}
+form#comments input {
+    border: none;
+    border-left: none;
+    background-color: white;
+    font-family: 'Raleway';
+    cursor: pointer;
+    outline: none;
+}
+input#showcom {
+    grid-column: 2 / 12;
+    height: 50px;
+    margin-bottom: 20px;
+}
+form#comments input:hover {
+    text-decoration: underline;
+}
+.commenthead {
+    width: 100%;
+    height: fit-content;
+    font-size: 16px;
+    border: 1px solid rgb(197, 197, 197);
+    font-weight: 700;
+    margin-top: 25px;
+    border-radius: 10px;
+    padding-left: 10px;
+    padding-right: 7px;
+}
+
+.commenthead span {
+    font-size: 20px;
+    font-weight: 700;
+    width: fit-content;
+}
 
 div.circle p {
     color: rgb(128, 128, 128);
@@ -203,3 +264,5 @@ div.hunted, div.dates {
         grid-column: 1 /-1;
     }
 }
+
+

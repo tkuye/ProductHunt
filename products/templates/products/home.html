@@ -5,8 +5,11 @@
 <body>
     <div class="container">
 
-        {% for product in products.all%}
-        
+        {% for product in products.all %}
+        <h1><a href="{% url 'detail' product.id %}">{{product.title}}</h1></a>
+        <p>{{product.summary}}</p>
+        <p>{{product.pub_date_pretty}}</p>
+        <img src="{{ product.image.url }}" alt="Image">
         {% endfor %}
 
         <div class='longer'></div>

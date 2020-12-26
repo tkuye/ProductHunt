@@ -1,11 +1,35 @@
-from django.http.response import JsonResponse
+from django.contrib.auth.models import User
+from django.core.serializers import serialize
+from django.http import response
+from django.http.response import HttpResponse, JsonResponse
 from django.shortcuts import redirect, render, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from .models import Product, Vote
+from .models import Product, Vote, Comment
 from django.views.decorators.csrf import csrf_exempt
+from functools import wraps
+from django.core.exceptions import PermissionDenied
+import json
+from collections import defaultdict
+from products.serializers import CommentSerializer
+from rest_framework.response import Response
+from rest_framework.decorators import api_view, renderer_classes
+from rest_framework.renderers import JSONRenderer, TemplateHTMLRenderer
+
+
+
+
+def ajax_login_required(view_func):
+    @wraps(view_func)
+    def wrapper(request, *args, **kwargs):
+        if request.user.is_authenticated:
+            return view_func(request, *args, **kwargs)
+        json = simplejson.dumps({ 'login_required': True })
+        return HttpResponse(json, mimetype='application/json')
+    return wrapper
+
 def home(request):
     products = Product.objects
-    return render(request, 'products/home.html')
+    return render(request, 'products/home.html', {'products':products})
 
 @login_required
 def create(request):
@@ -36,7 +60,7 @@ def detail(request, product_id):
 
 
 @csrf_exempt
-@login_required
+@ajax_login_required
 def upvote(request, product_id):
     if request.method == 'POST':
         try:
@@ -66,3 +90,34 @@ def downvote(request, product_id):
         product.votes_total -= 1
         product.save()
         return redirect('/products/' + str(product.id))
+
+
+@csrf_exempt
+@ajax_login_required
+def comments(request, product_id):
+    if request.method == 'POST':
+        comment = Comment()
+        comment.productId = get_object_or_404(Product, pk=product_id)
+        comment.userId = request.user
+        comment.comment = request.POST['comment']
+        print(comment.comment)
+        comment.save()
+        return redirect('/products/' + str(comment.productId))
+        
+    if request.method == 'GET':
+        comments = Comment.objects.filter(userId=request.user, productId=product_id).values()
+        latest_comment = comments.last()
+        
+        data = {
+            'latest':latest_comment,
+            'user':str(request.user), 
+        }
+        return JsonResponse(data)
+        
+
+def commentall(request, product_id):
+    if request.method == 'GET':
+        comments = Comment.objects.filter(productId=product_id)
+        serializer_class = CommentSerializer(comments, many=True)
+
+        return HttpResponse(serializer_class.data)

@@ -114,6 +114,17 @@
         <div class="textbody"><p>{{product.body}}</p></div>
     </div>
     </div>
+
+<input id='showcom' type="button" value="Show Comments">
+<div class="commenter">
+    <form id='comments' action="{% url 'comment' product.id%}" method="POST">
+        {% csrf_token %}
+    <textarea name="comment" id="section" cols="30" rows="20" value=''></textarea>
+    <input type="submit" value="Post">
+</form>
+<div id="commentsection">
+</div>
+</div>
 </div>
 </div>
 <form name='upvote' id='upvote' method="POST" onsubmit='return post()' action="{% url 'upvote' product.id%}">
@@ -127,6 +138,28 @@
 </form>
         
 <script>
+
+
+let commenter = document.querySelector('.commenter')
+commenter.hidden = true
+
+
+
+const tx = document.getElementsByTagName('textarea');
+for (let i = 0; i < tx.length; i++) {
+  tx[i].setAttribute('style', 'height:' + (tx[i].scrollHeight) + 'px;overflow-y:hidden;')
+  tx[i].addEventListener("input", OnInput, false);
+}
+
+function OnInput() {
+  this.style.height = '20px';
+  this.style.height = (this.scrollHeight) + 'px';
+  if (this.scrollHeight >= 60) {
+      this.style.height = '60px'
+  }
+}
+    
+    let commentaction = document.getElementById('comments').getAttribute('action')
     let up = document.getElementById('up')
     
     function getCookie(c_name)
@@ -160,40 +193,7 @@
         
 
     }
-
-    /*$('#upvote').on('submit', (function(event) {
-            event.preventDefault();
-
-            $.ajax({
-                type:'POST',
-                url:'/<int:product_id>/', 
-                data: {
-                    clicks:$('clickv').val(), 
-                    csrfmiddlewaretoken:$('p#csrf_token').val()
-                }, 
-                success:function() {
-                    console.log('Successful')
-                }
-            })
-
-    }));*/
  
-    function post() {
-        this.preventDefault()
-        console.log('NOPE')
-        $.ajax({
-                type:'POST',
-                url:'/products/4/upvote', 
-                data: {
-                    clicks:$('clickv').val(), 
-                    csrfmiddlewaretoken:$('p#csrf_token').val()
-                }, 
-                success:function() {
-                    console.log('Successful')
-                }
-            })
-
-    }
 
     function clickDown() {
         if (totalclicks == -1) return 
@@ -216,7 +216,6 @@
     setInterval(() => {setValueInput('clickv')}, 100)
 
    $('#up').on('click', function() {
-    
         $.ajax(
            {
                type:'POST', 
@@ -244,7 +243,7 @@ function slowUp() {
                 
                    document.getElementById('total').textContent = data['vote']
                }, error: function(xhr, textStatus) {
-                   alert('error')
+                   console.log('error')
                }
            }
        )}
@@ -282,15 +281,86 @@ function slowUp() {
                 
                    document.getElementById('total').textContent = data['vote']
                }, error: function(xhr, textStatus) {
-                   alert('error')
+                   console.log('error')
                }
            }
        )
     } 
     setTimeout(slowDown, 100)
     })
+    
+    
+   $('#comments').on('submit', function(e) {
+    let ctext = $('textarea#section').val();
+    
+    let commentsection = document.getElementById('commentsection')
+        
+        e.preventDefault()
+        if (ctext.trim() == '') return
+        console.log('default prevented')
+        $.ajax(
+           {
+               type:'POST', 
+               method:'POST',
+               url: commentaction, 
+               headers: { "X-CSRFToken": getCookie("csrftoken") },
+               data: {
+                    'comment': ctext
+               }, 
+               
+               success: function(response) {
+                   console.log('It worked.')
+               }, error: function(xhr, textStatus) {
+                   console.log('error Post')}
+           }
+       )
+    function slowHorses() {
+       $.ajax(
+        
+           {
+               type:'GET', 
+               url: commentaction,  
+               timeout: 2000,
+               async: true,
+               success: function(data) {
+                let headdiv = document.createElement('DIV')
+                let textdiv = document.createElement('DIV')
+                headdiv.innerHTML = `<p><span>${data['user']}</span>: ${data['latest'].comment}</p>`
+                headdiv.classList.add('commenthead')
+                    commentsection.appendChild(headdiv)
+               }, error: function(shr, textStatus) {
+                   console.log('Get No Show')
+               }
+           }
+       )
+    }
+    setTimeout(slowHorses, 300)
+    function eraser() {
+    document.getElementById('section').value = ''
+    }
+   setTimeout(eraser, 100)
+   })
    
-   
+   $('input#showcom').on('click', function() {
+        commenter.hidden = false
+        tx[0].style.height = '27px'
+
+        $.ajax(
+           {
+               type:'GET', 
+               url: "{% url 'comments' product.id%}",  
+               timeout: 2000,
+               async: true,
+               success: function(response) {
+                   console.log(response)
+               }, error: function(shr, textStatus) {
+                   console.log('Get No Show')
+               }
+           }
+       )
+   }
+   )
+
     
 </script>
 {% endblock %}
