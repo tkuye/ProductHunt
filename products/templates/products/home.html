@@ -3,18 +3,57 @@
 <title>Home</title>
 </head>
 <body>
-    <div class="container">
-
-        {% for product in products.all %}
-        <h1><a href="{% url 'detail' product.id %}">{{product.title}}</h1></a>
-        <p>{{product.summary}}</p>
-        <p>{{product.pub_date_pretty}}</p>
-        <img src="{{ product.image.url }}" alt="Image">
-        {% endfor %}
-
-        <div class='longer'></div>
-    </div>
-    
-</body>
+    {% block styles %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/detail.css' %}">
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
 {% endblock %}
+<div class="everything">   
+<style>
+    .circle {
+    border: 1px solid rgb(202, 202, 202);
+    width: fit-content;
+    border-radius: 50px;
+    padding: 2px;
+    grid-column: none;
+    grid-row: none;
+    max-height: 125px;
+    margin: auto;
+    text-align: right;
+    
+}
+
+@media only screen and (max-width:605px) {
+
+    svg {
+        height: 38px !important;
+        width: 20px !important;
+    }
+    .circle {
+        max-height: 100px;
+    }
+}
+</style>{% for product in products.all %}
+    <div class="container">
+        
+        <div class="chome">
+
+        
+        <img src="{{ product.image.url }}" alt="Image">
+        <div class="superword">
+        <div class="wordstuff">
+        <h1><a href="{% url 'detail' product.id %}">{{product.title}}</h1></a>
+        <p>{{product.summary}}...</p>
+        <p>{{product.pub_date_pretty}}</p>
+    </div>
+        </div>
+        </div>
+    </div>
+        
+    
+
+{% endfor %}
+</div>
+{% endblock %}
+</body>
 </html>

@@ -12,20 +12,22 @@ import json
 from collections import defaultdict
 from products.serializers import CommentSerializer
 from rest_framework.response import Response
-from rest_framework.decorators import api_view, renderer_classes
+from rest_framework.decorators import api_view, renderer_classes, permission_classes
 from rest_framework.renderers import JSONRenderer, TemplateHTMLRenderer
-
-
-
+from rest_framework import permissions
+import simplejson
+import mimetypes
+import functools
+from rest_framework.views import APIView
 
 def ajax_login_required(view_func):
-    @wraps(view_func)
+    @functools.wraps(view_func)
     def wrapper(request, *args, **kwargs):
         if request.user.is_authenticated:
             return view_func(request, *args, **kwargs)
-        json = simplejson.dumps({ 'login_required': True })
-        return HttpResponse(json, mimetype='application/json')
+        return JsonResponse('Unauthorized', status=401, safe=False)
     return wrapper
+
 
 def home(request):
     products = Product.objects
@@ -99,6 +101,7 @@ def comments(request, product_id):
         comment = Comment()
         comment.productId = get_object_or_404(Product, pk=product_id)
         comment.userId = request.user
+        comment.username = request.user
         comment.comment = request.POST['comment']
         print(comment.comment)
         comment.save()
@@ -113,11 +116,9 @@ def comments(request, product_id):
             'user':str(request.user), 
         }
         return JsonResponse(data)
-        
 
 def commentall(request, product_id):
     if request.method == 'GET':
         comments = Comment.objects.filter(productId=product_id)
         serializer_class = CommentSerializer(comments, many=True)
-
-        return HttpResponse(serializer_class.data)
+        return JsonResponse(serializer_class.data, safe=False)

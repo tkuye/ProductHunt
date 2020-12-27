@@ -141,7 +141,7 @@ div.textbody {
 
 .circle {
     border: 1px solid rgb(202, 202, 202);
-    width: fit-content;
+    width: 25px !important;
     border-radius: 50px;
     padding: 2px;
     grid-column: 1;
@@ -189,6 +189,7 @@ input#showcom {
     grid-column: 2 / 12;
     height: 50px;
     margin-bottom: 20px;
+    outline: none;
 }
 form#comments input:hover {
     text-decoration: underline;

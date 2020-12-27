@@ -1,6 +1,12 @@
 {% extends 'base.html' %}
 
 {% block content %}
+{% if user.is_authenticated %}
+<script>
+    window.location.href = "{% url 'home' %}"
+</script>
+{% endif %}
+<div class="everything">
 {% block styles %}
 {% load static %}
 <link rel="stylesheet" href="{% static 'css/login.css' %}">
@@ -30,5 +36,5 @@
     </div>
     </form>
 
-
+</div>
 {% endblock %}

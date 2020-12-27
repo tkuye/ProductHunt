@@ -19,7 +19,7 @@ h1.creator {
 }
 form#create {position: relative;
     box-shadow: none;
-    width: fit-content;
+    width: 90%;
     background-color: white;
     text-align: left;
     margin: auto;

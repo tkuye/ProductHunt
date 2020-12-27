@@ -11,6 +11,7 @@
 <script>
     
 </script>
+<div class="everything">
 <div class="supercontain" >
 <div class="contain">
     <div class="name">
@@ -136,7 +137,7 @@
     {% csrf_token %}
     <input type="hidden">
 </form>
-        
+</div>
 <script>
 
 
@@ -226,9 +227,14 @@ function OnInput() {
                }, 
                success: function(response) {
                    console.log('It worked.')
-               }
+               }, error: function(json) {
+                      if (json.statusText == 'Unauthorized'){
+                          window.location.href = "{% url 'login' %}"
+                      }
+                    }
            }
        )
+       
 function slowUp() {
       $.ajax(
            {
@@ -264,6 +270,10 @@ function slowUp() {
                }, 
                success: function(response) {
                    console.log('It worked.')
+               }, error: function(json) {
+                      if (json.statusText == 'Unauthorized'){
+                          window.location.href = "{% url 'login' %}"
+                      }
                }
            }
        )
@@ -310,9 +320,11 @@ function slowUp() {
                
                success: function(response) {
                    console.log('It worked.')
-               }, error: function(xhr, textStatus) {
-                   console.log('error Post')}
-           }
+               }, error: function(json) {
+                      if (json.statusText == 'Unauthorized'){
+                          window.location.href = "{% url 'login' %}"
+                      }
+           }}
        )
     function slowHorses() {
        $.ajax(
@@ -340,11 +352,25 @@ function slowUp() {
     }
    setTimeout(eraser, 100)
    })
-   
+   let showcomments = document.querySelector('input#showcom')
+   function changeText() {
+    showcomments.setAttribute('value', 'Hide Comments')
+   }
+   let ii = 0
+   let c = 0 
    $('input#showcom').on('click', function() {
         commenter.hidden = false
         tx[0].style.height = '27px'
-
+        changeText()
+        console.log(ii)
+        if (ii == 1) {
+            commenter.hidden = true
+            showcomments.setAttribute('value', 'Show Comments')
+            ii = 0
+            return false
+            
+        }
+        if (c < 1) {
         $.ajax(
            {
                type:'GET', 
@@ -352,15 +378,23 @@ function slowUp() {
                timeout: 2000,
                async: true,
                success: function(response) {
-                   console.log(response)
+                   for (let obj of response) {
+                let headdiv = document.createElement('DIV')
+                headdiv.innerHTML = `<p><span>${obj.username}</span>: ${obj.comment}</p>`
+                headdiv.classList.add('commenthead')
+                    commentsection.appendChild(headdiv)
+                   }
                }, error: function(shr, textStatus) {
                    console.log('Get No Show')
                }
            }
        )
+        }
+       ii += 1
+       c += 1
    }
    )
-
-    
+   
+   
 </script>
 {% endblock %}
